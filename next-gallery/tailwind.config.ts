@@ -8,6 +8,9 @@ export default {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      backgroundImage: {
+        'hero-image': "url('../../public/images/bear.jpg')"
+      }
     },
   },
   plugins: [],
