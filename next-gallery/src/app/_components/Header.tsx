@@ -14,11 +14,11 @@ export default function Header({ homePage }: HeaderProps): JSX.Element {
       <HeaderItem>
         <Link href="/">
           {homePage == true ? (
-            <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
+            <h1 className="text-5xl font-extrabold tracking-tight sm:text-[3rem] lg:text-[5rem]">
               <span className="text-red">MG</span>GALLERY
             </h1>
           ) : (
-            <h1 className="text-2xl font-extrabold tracking-tight sm:text-[2rem]">
+            <h1 className="sm:text-1xl font-extrabold tracking-tight sm:text-[1rem] lg:text-2xl lg:text-[3rem]">
               <span className="text-red">MG</span>GALLERY
             </h1>
           )}

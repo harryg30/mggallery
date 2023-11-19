@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     // bg-hero-image bg-cover
-    <main className="bg-hero-image bg-cover bg-center text-white ">
+    <main className="bg-hero-image bg-cover bg-center text-white">
       <div className="flex min-h-screen flex-row items-start justify-center">
         <Header homePage={true} />
       </div>
