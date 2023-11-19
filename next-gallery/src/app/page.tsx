@@ -11,8 +11,11 @@ export default async function Home() {
 
   return (
     // bg-hero-image bg-cover
-    <main className="flex min-h-screen flex-row items-start justify-center bg-gradient-to-b from-[#58a3ad] to-[#ce6c38b7] text-white">
-      <Header/>    
+    <main className="bg-gradient-to-b from-lightBlue to-darkBlue text-white ">
+      <div className="flex min-h-screen flex-row items-start justify-center">
+      <Header/>  
+      </div>
+  
       
   
     </main>
