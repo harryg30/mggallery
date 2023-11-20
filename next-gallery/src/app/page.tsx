@@ -3,19 +3,19 @@ import Link from "next/link";
 import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
+import Header from "./_components/Header";
+import { boolean } from "zod";
+import Art from "./art/page";
 
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-hero-image bg-cover from-[#58a3ad] to-[#b64b12] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-15 ">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-          <span className="text-[hsl(279,37%,11%)]">MG</span>GALLERY
-        </h1>
+  return <Art />;
+}
 
-          {/* <div className="flex flex-col items-center justify-center gap-4">
+{
+  /* <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-white">
               {session && <span>Logged in as {session.user?.name}</span>}
             </p>
@@ -25,12 +25,8 @@ export default async function Home() {
             >
               {session ? "Sign out" : "Sign in"}
             </Link>
-          </div> */}
-      </div>
-    </main>
-  );
+          </div> */
 }
-
 // async function CrudShowcase() {
 //   const session = await getServerAuthSession();
 //   if (!session?.user) return null;

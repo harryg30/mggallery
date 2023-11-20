@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .header-item {
+    @apply relative flex h-auto w-auto
+        items-center justify-center text-white
+        hover:text-darkPurple;
+  }
+}
