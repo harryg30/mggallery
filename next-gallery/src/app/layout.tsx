@@ -25,13 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <div className="flex flex-col">
+        <div className="flex max-w-full flex-col">
           <div className="flex-none">
-            <div className="fixed top-0 flex w-16 w-screen flex-row items-center justify-center space-x-5 bg-gradient-to-r from-lightPink to-red ">
+            <div className=" sticky top-0 flex flex-row items-center justify-center space-x-5 bg-gradient-to-r from-lightPink to-red ">
               <Header />
             </div>
           </div>
-          <div className="flex-1 pt-12">
+          <div className=" flex-1">
             <main
               className="min-h-screen bg-gradient-to-b
                from-lightBlue  to-darkBlue bg-center text-white"
