@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { UploadButton } from "~/utils/uploadthing";
 
 import { api } from "~/trpc/react";
 
@@ -9,28 +10,9 @@ export function CreatePost() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [month, setMonth] = useState("");
-  const [year, setYear] = useState("");
-  const [image, setImage] = useState<File>();
-  const [preview, setPreview] = useState("");
-
-  function handleFile(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) {
-    const files = (e.target as HTMLInputElement).files;
-
-    if (files) {
-      setImage(files[0]);
-    }
-  }
-
-  useEffect(() => {
-    if (image != undefined) {
-      const objectUrl = URL.createObjectURL(image);
-
-      setPreview(objectUrl);
-    }
-  }, [image]);
+  const [month, setMonth] = useState<number>(1);
+  const [year, setYear] = useState<number>(1);
+  const [imageUrl, setImageUrl] = useState("");
 
   // Get the current year
   const currentYear = new Date().getFullYear();
@@ -52,7 +34,7 @@ export function CreatePost() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        createPost.mutate({ name, description, month, year });
+        createPost.mutate({ imageUrl, name, description, month, year });
       }}
       className="container m-auto grid grid-cols-3 gap-3"
     >
@@ -62,17 +44,33 @@ export function CreatePost() {
         </div>
       </div>
 
-      <input
-        type="file"
-        onChange={(e) => handleFile(e)}
-        className="col-span-2"
-      />
+      <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
 
-      {preview != "" ? (
+          if (res != undefined) {
+            if (res[0] != undefined) {
+              if (res[0].url != undefined) {
+                setImageUrl(res[0].url);
+              }
+            }
+          }
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+        className="col-span-1"
+      />
+      <div className="col-span-1"></div>
+      {imageUrl != "" ? (
         <>
           <div className="col-span-1"></div>
           <div className="col-span-1">
-            <img src={preview} />
+            <img src={imageUrl} />
           </div>
           <div className="col-span-1"></div>
         </>
@@ -120,20 +118,21 @@ export function CreatePost() {
             id="month"
             name="month"
             className="text-black"
-            onChange={(e) => setMonth(e.target.value)}
+            defaultValue={1}
+            onChange={(e) => setMonth(parseInt(e.target.value))}
           >
-            <option selected>January</option>
-            <option>February</option>
-            <option>March</option>
-            <option>April</option>
-            <option>May</option>
-            <option>June</option>
-            <option>July</option>
-            <option>August</option>
-            <option>September</option>
-            <option>October</option>
-            <option>November</option>
-            <option>December</option>
+            <option value={1}>January</option>
+            <option value={2}>February</option>
+            <option value={3}>March</option>
+            <option value={4}>April</option>
+            <option value={5}>May</option>
+            <option value={6}>June</option>
+            <option value={7}>July</option>
+            <option value={8}>August</option>
+            <option value={9}>September</option>
+            <option value={10}>October</option>
+            <option value={11}>November</option>
+            <option value={12}>December</option>
           </select>
 
           <label htmlFor="year">Year</label>
@@ -141,7 +140,7 @@ export function CreatePost() {
             id="year"
             name="year"
             className="text-black"
-            onChange={(e) => setYear(e.target.value)}
+            onChange={(e) => setYear(parseInt(e.target.value))}
           >
             {last25Years.map((year) => (
               <option key={year} value={year}>

@@ -12,7 +12,7 @@ datasource db {
 
 model Post {
     id           String   @id @default(auto()) @map("_id") @db.ObjectId
-    image        Bytes
+    imageUrl     String
     title        String
     description  String
     tags         String[]

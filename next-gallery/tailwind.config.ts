@@ -1,7 +1,8 @@
 import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import { withUt } from "uploadthing/tw";
 
-export default {
+export default withUt({
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
@@ -20,16 +21,15 @@ export default {
         darkPink: "#4a305a",
         blue: "#5f80b4",
         yellow: "#b4935f",
-        red:"#b45f80",
+        red: "#b45f80",
         lightOrange: "#f0c47f",
         lightYellow: "#e3f07f",
         lightGreen: "#abf07f",
         lightBlue: "#7fabf0",
         lightPurple: "#8c7ff0",
         lightPink: "#e07ff0",
-
       },
     },
   },
   plugins: [],
-} satisfies Config;
+}) satisfies Config;
