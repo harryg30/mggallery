@@ -4,8 +4,8 @@
 
 @layer components {
   .header-item {
-    @apply hover:text-darkPurple relative flex h-auto
-        w-auto items-center justify-center
-        text-white;
+    @apply relative flex h-auto w-auto
+        items-center justify-center text-white
+        hover:text-darkPurple;
   }
 }

@@ -5,19 +5,13 @@ import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 import Header from "./_components/Header";
 import { boolean } from "zod";
+import Art from "./art/page";
 
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
-  return (
-    // bg-hero-image bg-cover
-    <main className="bg-hero-image bg-cover bg-center text-white">
-      <div className="flex min-h-screen flex-row items-start justify-center">
-        <Header homePage={true} />
-      </div>
-    </main>
-  );
+  return <Art />;
 }
 
 {
