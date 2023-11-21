@@ -38,25 +38,13 @@ export function CreatePost() {
       }}
       className="container m-auto grid grid-cols-3 gap-3"
     >
-      <div className="col-span-1 flex flex-col justify-center">
-        <div className="flex flex-row justify-end">
-          <label>Upload an image</label>
-        </div>
-      </div>
+      <Label>Upload an image</Label>
 
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-
-          if (res != undefined) {
-            if (res[0] != undefined) {
-              if (res[0].url != undefined) {
-                setImageUrl(res[0].url);
-              }
-            }
-          }
+          // set url response to state
+          setImageUrl(res[0]!.url);
           alert("Upload Completed");
         }}
         onUploadError={(error: Error) => {
@@ -65,24 +53,10 @@ export function CreatePost() {
         }}
         className="col-span-1"
       />
-      <div className="col-span-1"></div>
-      {imageUrl != "" ? (
-        <>
-          <div className="col-span-1"></div>
-          <div className="col-span-1">
-            <img src={imageUrl} />
-          </div>
-          <div className="col-span-1"></div>
-        </>
-      ) : (
-        <></>
-      )}
+      <ColSpan1 />
+      <ShowPreview imageUrl={imageUrl} />
+      <Label>Title</Label>
 
-      <div className="col-span-1 flex flex-col justify-center">
-        <div className="flex flex-row justify-end">
-          <label>Title</label>
-        </div>
-      </div>
       <input
         type="text"
         placeholder="Title"
@@ -90,13 +64,10 @@ export function CreatePost() {
         onChange={(e) => setName(e.target.value)}
         className="col-span-1 w-full rounded-full px-4 py-2 text-black"
       />
-      <div className="col-span-1"></div>
+      <ColSpan1 />
 
-      <div className="col-span-1 flex flex-col justify-center">
-        <div className="flex flex-row justify-end">
-          <label>Description</label>
-        </div>
-      </div>
+      <Label>Description</Label>
+
       <input
         type="text"
         placeholder="Description"
@@ -104,13 +75,10 @@ export function CreatePost() {
         onChange={(e) => setDescription(e.target.value)}
         className="col-span-1 w-full rounded-full px-4 py-2 text-black"
       />
-      <div className="col-span-1"></div>
+      <ColSpan1 />
 
-      <div className="col-span-1 flex flex-col justify-center">
-        <div className="flex flex-row justify-end">
-          <label>Finished Date</label>
-        </div>
-      </div>
+      <Label>Finished Date</Label>
+
       <div className="col-span-1">
         <div className="flex flex-row gap-6">
           <label htmlFor="month">Month</label>
@@ -150,7 +118,7 @@ export function CreatePost() {
           </select>
         </div>
       </div>
-      <div className="col-span-1"></div>
+      <ColSpan1 />
 
       <button
         type="submit"
@@ -160,5 +128,42 @@ export function CreatePost() {
         {createPost.isLoading ? "Submitting..." : "Submit"}
       </button>
     </form>
+  );
+}
+
+type ChildProps = {
+  children: string | JSX.Element | JSX.Element[];
+};
+function Label({ children }: ChildProps): JSX.Element {
+  return (
+    <div className="col-span-1 flex flex-col justify-center">
+      <div className="flex flex-row justify-end">
+        <label>{children}</label>
+      </div>
+    </div>
+  );
+}
+function ColSpan1(): JSX.Element {
+  return <div className="col-span-1"></div>;
+}
+
+type PreviewProps = {
+  imageUrl: string;
+};
+function ShowPreview({ imageUrl }: PreviewProps): JSX.Element {
+  return (
+    <>
+      {imageUrl != "" ? (
+        <>
+          <ColSpan1 />
+          <div className="col-span-1">
+            <img src={imageUrl} />
+          </div>
+          <ColSpan1 />
+        </>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
