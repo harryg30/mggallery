@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { boolean } from "zod";
 
 export default function Header(): JSX.Element {
   return (

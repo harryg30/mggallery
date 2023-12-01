@@ -1,11 +1,22 @@
-import Header from "../_components/Header";
+import Link from "next/link";
+import { getServerAuthSession } from "~/server/auth";
+import { CreatePost } from "../_components/create-post";
 
-export default function NewPost() {
+export default async function NewPost() {
+  const session = await getServerAuthSession();
   return (
-    <div className="flex flex-col items-center justify-center pt-10">
-      <div className="flex flex-row gap-5">
-        <label>Upload an image</label>
-        <input type="file" id="image" />
+    <div className="flex flex-col items-center gap-5 pt-10">
+      <CreatePost />
+      <div className="flex flex-col items-center justify-center gap-4">
+        <p className="text-center text-2xl text-white">
+          {session && <span>Logged in as {session.user?.name}</span>}
+        </p>
+        <Link
+          href={session ? "/api/auth/signout" : "/api/auth/signin"}
+          className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
+        >
+          {session ? "Sign out" : "Sign in"}
+        </Link>
       </div>
     </div>
   );

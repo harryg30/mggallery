@@ -11,21 +11,24 @@ datasource db {
 }
 
 model Post {
-    id        String      @id @default(auto()) @map("_id") @db.ObjectId
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id           String   @id @default(auto()) @map("_id") @db.ObjectId
+    imageUrl     String
+    title        String
+    description  String
+    tags         String[]
+    finishedDate DateTime
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    createdBy    User     @relation(fields: [createdById], references: [id])
+    createdById  String   @db.ObjectId
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
+    @@index([title])
 }
 
 // Necessary for Next auth
 model Account {
     id                String  @id @default(auto()) @map("_id") @db.ObjectId
-    userId            String
+    userId            String  @db.ObjectId
     type              String
     provider          String
     providerAccountId String
