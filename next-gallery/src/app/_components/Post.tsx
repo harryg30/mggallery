@@ -1,14 +1,4 @@
-type post = {
-  id: string;
-  imageUrl: string;
-  title: string;
-  description: string;
-  tags: string[];
-  finishedDate: Date;
-  createdAt: Date;
-  updatedAt: Date;
-  createdById: string;
-};
+import { post } from "~/types";
 
 type postProps = {
   post: post;
@@ -17,8 +7,8 @@ export default function Post(props: postProps): JSX.Element {
   return (
     <>
       <a
-        href="#"
-        className="mt-3 block  bg-gradient-to-b from-lightPink to-red "
+        href={"art/post/" + props.post.id}
+        className="mt-3 block  bg-gradient-to-b from-lightPink to-red"
       >
         <img
           src={props.post.imageUrl}
