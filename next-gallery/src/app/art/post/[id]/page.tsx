@@ -4,6 +4,7 @@ import { api } from "~/trpc/server";
 import type { post } from "~/types";
 import { db } from "~/server/db";
 import Image from "next/image";
+import Link from "next/link";
 
 export async function generateStaticParams() {
   const helpers = createServerSideHelpers({
@@ -35,7 +36,7 @@ export default async function PostViewPage({
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center p-2 ">
+      <div className="flex flex-row justify-center  gap-2 p-2">
         <div className="relative flex max-h-screen flex-row bg-gradient-to-b from-lightPink to-red">
           <a href={post?.imageUrl}>
             <Image
@@ -49,7 +50,10 @@ export default async function PostViewPage({
           <div>
             <h1 className="flex p-4 text-lg">{post?.title}</h1>
             <p className="flex p-4">{post?.description}</p>
-          </div>
+          </div>{" "}
+        </div>{" "}
+        <div className="flex h-5 flex-col items-center justify-center bg-gradient-to-b from-lightPink to-red p-1">
+          <Link href={"/art"}>x</Link>
         </div>
       </div>
     </>
