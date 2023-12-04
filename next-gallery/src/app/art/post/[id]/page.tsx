@@ -1,17 +1,20 @@
 import { createServerSideHelpers } from "@trpc/react-query/server";
-import { GetStaticPropsContext } from "next";
 import { appRouter } from "~/server/api/root";
-import { createContextInner } from "~/server/context";
 import { api } from "~/trpc/server";
 import { post } from "~/types";
-import { getSession } from "next-auth/react";
 import { db } from "~/server/db";
 
-export async function generateStaticParams(
-  context: GetStaticPropsContext<{ id: string }>,
-) {
-  const id = context.params?.id as string;
-  const posts = api.post.getAllPosts.query().then((p) => {
+export async function generateStaticParams() {
+  const helpers = createServerSideHelpers({
+    router: appRouter,
+    ctx: {
+      headers: new Headers(),
+      session: null,
+      db: db,
+    },
+  });
+
+  const posts = helpers.post.getAllPosts.fetch().then((p) => {
     return p;
   });
   return (await posts).map((post: post) => ({
@@ -29,5 +32,10 @@ export default async function PostViewPage({
     return x;
   });
 
-  return <>{post?.id}</>;
+  return (
+    <>
+      <img src={post?.imageUrl}></img>
+      {post?.id}
+    </>
+  );
 }
