@@ -1,4 +1,4 @@
-import { post } from "~/types";
+import type { post } from "~/types";
 
 type postProps = {
   post: post;

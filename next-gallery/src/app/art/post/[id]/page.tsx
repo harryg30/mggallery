@@ -1,7 +1,7 @@
 import { createServerSideHelpers } from "@trpc/react-query/server";
 import { appRouter } from "~/server/api/root";
 import { api } from "~/trpc/server";
-import { post } from "~/types";
+import type { post } from "~/types";
 import { db } from "~/server/db";
 
 export async function generateStaticParams() {

@@ -6,10 +6,6 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-type searchById = {
-  id: string;
-};
-
 export const postRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
@@ -46,10 +42,13 @@ export const postRouter = createTRPCRouter({
     });
   }),
 
-  byId: publicProcedure.input(z.object({ id: z.string() })).query(({ ctx }) => {
-    return ctx.db.post.findFirst({
-      where: {},
-      orderBy: { createdAt: "desc" },
-    });
-  }),
+  byId: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.post.findFirst({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });
