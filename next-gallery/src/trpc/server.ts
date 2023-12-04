@@ -6,10 +6,8 @@ import {
 import { createServerSideHelpers } from "@trpc/react-query/server";
 import { cookies } from "next/headers";
 
-import { type AppRouter } from "~/server/api/root";
+import { appRouter, type AppRouter } from "~/server/api/root";
 import { getUrl, transformer } from "./shared";
-import { createContext, createRouter } from "~/server/context";
-import { appRouter } from "~/server/api/routers/_app";
 import { createInnerTRPCContext } from "~/server/api/trpc";
 
 export const api = createTRPCProxyClient<AppRouter>({
@@ -32,7 +30,3 @@ export const api = createTRPCProxyClient<AppRouter>({
   ],
 });
 
-// export const helpers = createServerSideHelpers({
-//   router: appRouter,
-//   ctx: await createInnerTRPCContext({}),
-// });

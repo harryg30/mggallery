@@ -1,21 +1,33 @@
+import { createServerSideHelpers } from "@trpc/react-query/server";
+import { GetStaticPropsContext } from "next";
+import { appRouter } from "~/server/api/root";
+import { createContextInner } from "~/server/context";
+import { api } from "~/trpc/server";
 import { post } from "~/types";
-import { trpc } from "~/utils/trpc";
+import { getSession } from "next-auth/react";
+import { db } from "~/server/db";
 
-export async function generateStaticParams() {
-  // const posts = trpc.post.getAllPosts.useQuery().data!;
-  // return posts.map((post: post) => ({
-  //   id: post.id,
-  // }));
+export async function generateStaticParams(
+  context: GetStaticPropsContext<{ id: string }>,
+) {
+  const id = context.params?.id as string;
+  const posts = api.post.getAllPosts.query().then((p) => {
+    return p;
+  });
+  return (await posts).map((post: post) => ({
+    id: post.id,
+  }));
 }
 
-export default function PostViewPage({ params }: { params: { id: string } }) {
+export default async function PostViewPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { id } = params;
-  const postQuery = trpc.post.byId.useQuery({ id: id });
+  const post = await api.post.byId.query({ id: id }).then((x) => {
+    return x;
+  });
 
-  if (postQuery.status !== "success") {
-    // won't happen since we're using `fallback: "blocking"`
-    return <>Loading...</>;
-  }
-  const { data } = postQuery;
-  return <>{data?.id}</>;
+  return <>{post?.id}</>;
 }

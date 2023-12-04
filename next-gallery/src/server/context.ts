@@ -1,24 +1,46 @@
-import * as trpc from "@trpc/server";
-import * as trpcNext from "@trpc/server/adapters/next";
-// The app's context - is generated for each incoming request
-export async function createContext(opts?: trpcNext.CreateNextContextOptions) {
-  // Create your context based on the request object
-  // Will be available as `ctx` in all your resolvers
-  // This is just an example of something you'd might want to do in your ctx fn
-  async function getUserFromHeader() {
-    if (opts?.req.headers.authorization) {
-      // const user = await decodeJwtToken(req.headers.authorization.split(' ')[1])
-      // return user;
-    }
-    return null;
-  }
-  const user = await getUserFromHeader();
+// -------------------------------------------------
+// @filename: context.ts
+// -------------------------------------------------
+import type { CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { getServerAuthSession } from "./auth";
+import { db } from "./db";
+import { Session } from "next-auth";
+
+/**
+ * Defines your inner context shape.
+ * Add fields here that the inner context brings.
+ */
+interface CreateInnerContextOptions extends Partial<CreateNextContextOptions> {
+  session: Session | null;
+}
+/**
+ * Inner context. Will always be available in your procedures, in contrast to the outer context.
+ *
+ * Also useful for:
+ * - testing, so you don't have to mock Next.js' `req`/`res`
+ * - tRPC's `createServerSideHelpers` where we don't have `req`/`res`
+ *
+ * @see https://trpc.io/docs/context#inner-and-outer-context
+ */
+export async function createContextInner(opts?: CreateInnerContextOptions) {
   return {
-    user,
+    db,
+    session: opts?.session,
   };
 }
-type Context = trpc.inferAsyncReturnType<typeof createContext>;
-// Helper function to create a router with your app's context
-export function createRouter() {
-  return trpc.router<Context>();
+/**
+ * Creates context for an incoming request
+ * @link https://trpc.io/docs/context
+ */
+export async function createContext(opts: CreateNextContextOptions) {
+  const session = await getServerAuthSession();
+
+  const contextInner = await createContextInner({ session });
+
+  return {
+    ...contextInner,
+    session,
+  };
 }
+
+export type Context = Awaited<ReturnType<typeof createContext>>;
