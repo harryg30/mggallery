@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import { UploadButton } from "~/utils/uploadthing";
 
 import { api } from "~/trpc/react";
@@ -157,7 +158,7 @@ function ShowPreview({ imageUrl }: PreviewProps): JSX.Element {
         <>
           <ColSpan1 />
           <div className="col-span-1">
-            <img src={imageUrl} />
+            <Image src={imageUrl} width={900} height={900} alt={""} />
           </div>
           <ColSpan1 />
         </>
