@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <div className="flex max-w-full flex-col">
+        <div className="flex max-h-1 max-w-full flex-col">
           <div className="flex-none">
             <div className=" sticky top-0 flex flex-row items-center justify-center space-x-5 bg-gradient-to-r from-lightPink to-red ">
               <Header />
@@ -33,7 +33,7 @@ export default function RootLayout({
           </div>
           <div className=" flex-1">
             <main
-              className="min-h-screen bg-gradient-to-b
+              className="min-h-[calc(100vh-48px)] bg-gradient-to-b
                from-lightBlue  to-darkBlue bg-center text-white"
             >
               <TRPCReactProvider cookies={cookies().toString()}>
