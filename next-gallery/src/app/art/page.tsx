@@ -13,14 +13,14 @@ type post = {
 };
 
 export default async function Art() {
-  const posts = await api.post.getLatest.query().then((p: post[]) => {
+  const posts = await api.post.getAllPosts.query().then((p: post[]) => {
     return p;
   });
 
   return (
     <>
       <div className="container m-auto grid grid-cols-4 gap-3">
-        {posts ? posts.map((p: post) => <Post post={p} />) : <></>}
+        {posts ? posts.map((p: post) => <Post post={p} key={p.id} />) : <></>}
       </div>
     </>
   );

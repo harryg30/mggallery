@@ -3,10 +3,13 @@ import {
   loggerLink,
   unstable_httpBatchStreamLink,
 } from "@trpc/client";
-import { cookies } from "next/headers";
+import { createServerSideHelpers } from "@trpc/react-query/server";
+import { headers, cookies } from "next/headers";
+import { RequestCookies } from "next/dist/server/web/spec-extension/cookies";
 
-import { type AppRouter } from "~/server/api/root";
+import { appRouter, type AppRouter } from "~/server/api/root";
 import { getUrl, transformer } from "./shared";
+import { getServerSession } from "next-auth";
 
 export const api = createTRPCProxyClient<AppRouter>({
   transformer,
