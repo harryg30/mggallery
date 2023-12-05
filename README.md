@@ -18,7 +18,7 @@ to run dev locally
 
 # Tests
 e2e and component tests are built with Cypress
-Cypress docs: https://docs.cypress.io/guides/overview/why-cypress
+- Cypress docs: https://docs.cypress.io/guides/overview/why-cypress
 tests are located in `/next-gallery/Cypress/`
 
 to run the tests 
