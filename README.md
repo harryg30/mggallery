@@ -1,6 +1,6 @@
 # mggallery - art blog
 
-This project is created using the T3 stack (Next, TypeScript, tRPC, TailwindCSS, Prisma, NextAuth.js) with a mongoDB back end hosted on mongo cloud.
+This project is created using the T3 stack (Next, TypeScript, tRPC, TailwindCSS, Prisma, NextAuth.js) with a mongoDB back end hosted on mongo cloud and image/file uploads hosted by UploadThing.
 - T3 docs https://create.t3.gg/en/introduction
 - Next.js App Router docs https://nextjs.org/docs/app
 - TypeScript docs https://www.typescriptlang.org/docs/
@@ -9,6 +9,7 @@ This project is created using the T3 stack (Next, TypeScript, tRPC, TailwindCSS,
 - Prisma docs https://www.prisma.io/docs
 - NextAuth.js docs https://next-auth.js.org/getting-started/introduction
 - MongoDB cloud https://cloud.mongodb.com
+- UploadThing https://docs.uploadthing.com/
 
 
 
