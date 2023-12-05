@@ -52,7 +52,7 @@ export default async function PostViewPage({
             <p className="flex p-4">{post?.description}</p>
           </div>{" "}
         </div>{" "}
-        <div className="flex h-5 flex-col items-center justify-center bg-gradient-to-b from-lightPink to-red p-1">
+        <div className="back-button flex h-5 flex-col items-center justify-center bg-gradient-to-b from-lightPink to-red p-1">
           <Link href={"/art"}>x</Link>
         </div>
       </div>

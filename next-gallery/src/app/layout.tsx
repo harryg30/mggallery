@@ -27,7 +27,7 @@ export default function RootLayout({
       <body className={`font-sans ${inter.variable}`}>
         <div className="flex max-h-1 max-w-full flex-col">
           <div className="flex-none">
-            <div className=" sticky top-0 flex flex-row items-center justify-center space-x-5 bg-gradient-to-r from-lightPink to-red ">
+            <div className=" header sticky top-0 flex flex-row items-center justify-center space-x-5 bg-gradient-to-r from-lightPink to-red ">
               <Header />
             </div>
           </div>
